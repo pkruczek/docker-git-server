@@ -1,0 +1,18 @@
+FROM arm32v6/alpine
+ENTRYPOINT ["/entrypoint.sh"]
+EXPOSE 22
+COPY entrypoint.sh /entrypoint.sh
+
+RUN apk add --no-cache openssh git \
+&& echo "root:root" | chpasswd \
+&& chmod u+x /entrypoint.sh \
+&& sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ no/ /etc/ssh/sshd_config 
+
+RUN adduser -s $(which git-shell) -D git
+RUN passwd -u git
+WORKDIR /home/git
+RUN mkdir .ssh && chmod 700 .ssh
+ADD authorized_keys .ssh/authorized_keys
+RUN chmod 600 .ssh/authorized_keys
+RUN chown -R git:git .ssh
+RUN mkdir repos && chown -R git:git repos
