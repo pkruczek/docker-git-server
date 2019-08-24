@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+CONTAINER_NAME=${CONTAINER_NAME:-git-server}
+
+sudo docker stop ${CONTAINER_NAME}
+sudo docker rm ${CONTAINER_NAME}

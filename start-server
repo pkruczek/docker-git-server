@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
 WORKSPACE=${WORKSPACE:-$PWD/workspace}
+CONTAINER_NAME=${CONTAINER_NAME:-git-server}
 
-sudo docker run -d --rm -v "$PWD/repos:/home/git/repos" -v "$WORKSPACE:/home/git/workspace" -p 22222:22 git-server
+sudo docker run -d --name ${CONTAINER_NAME} -v "$PWD/repos:/home/git/repos" -v "$WORKSPACE:/home/git/workspace" -p 22222:22 git-server
