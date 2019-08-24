@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-nohup sudo docker run -v "$PWD/repos:/home/git/repos" -p 22222:22 git-server &
+WORKSPACE=${WORKSPACE:-$PWD/workspace}
+
+sudo docker run -d --rm -v "$PWD/repos:/home/git/repos" -v "$WORKSPACE:/home/git/workspace" -p 22222:22 git-server
