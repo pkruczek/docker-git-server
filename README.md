@@ -12,9 +12,13 @@ cat ~/.ssh/github/pkruczek.pub > authorized_keys
 mkdir repos
 ```
 
-* Build image 
+* Build image (x86)
 ```
 sudo docker build -t git-server .
+```
+* Build image (arm)
+```
+sudo docker build -t git-server -f Dockerfile.arm .
 ```
 
 ## Creating a repo
@@ -24,6 +28,11 @@ cd repos
 mkdir project.git
 cd project.git
 git init --bare
+```
+
+## Start a server
+```
+./start-server
 ```
 
 ## Set remote repo in git project
